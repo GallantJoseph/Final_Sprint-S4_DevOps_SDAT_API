@@ -3,6 +3,8 @@ package rest.aircraft;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rest.airline.Airline;
+import rest.airline.AirlineRepository;
 import rest.airport.Airport;
 import rest.airport.AirportRepository;
 import rest.passenger.Passenger;
@@ -23,6 +25,9 @@ public class AircraftService {
 
     @Autowired
     private PassengerRepository passengerRepository;
+
+    @Autowired
+    private AirlineRepository airlineRepository;
 
     public Iterable<Aircraft> getAllAircraftByPassengerId (Long passengerId) {
         return aircraftRepository.findAllByPassengers_Id(passengerId);
@@ -49,7 +54,6 @@ public class AircraftService {
         return result;
     }
 
-
     public Iterable<Aircraft> getAllAircraft() {
         return  aircraftRepository.findAll();
     }
@@ -58,18 +62,36 @@ public class AircraftService {
         return aircraftRepository.findById(id).orElse(null);
     }
 
-    public Aircraft createAircraft(Aircraft newAircraft){
+    public Aircraft createAircraft(Aircraft newAircraft, Long airlineId){
+        if (airlineId != null) {
+            Optional<Airline> airlineOptional = airlineRepository.findById(airlineId);
+
+            airlineOptional.ifPresent(newAircraft::setAirline);
+        }
+
         return aircraftRepository.save(newAircraft);
     }
 
-    public Aircraft updateAircraft(Long id, Aircraft updatedAircraft){
+    public Aircraft updateAircraft(Long id, Aircraft updatedAircraft, Long airlineId){
         Optional<Aircraft> aircraftOptional = aircraftRepository.findById(id);
+        Optional<Airline> airlineOptional;
+
         if (aircraftOptional.isEmpty()){
             return null;
         }
+
         Aircraft aircraftToUpdate = aircraftOptional.get();
+
         aircraftToUpdate.setType(updatedAircraft.getType());
-        aircraftToUpdate.setAirlineName(updatedAircraft.getAirlineName());
+
+        if (airlineId != null) {
+            airlineOptional = airlineRepository.findById(airlineId);
+            
+            airlineOptional.ifPresent(aircraftToUpdate::setAirline);
+        } else {
+            aircraftToUpdate.setAirline(updatedAircraft.getAirline());
+        }
+
         aircraftToUpdate.setNumberOfPassengers(updatedAircraft.getNumberOfPassengers());
         return aircraftRepository.save(aircraftToUpdate);
     }
