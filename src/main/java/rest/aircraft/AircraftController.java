@@ -31,13 +31,15 @@ public class AircraftController {
     }
 
     @PostMapping
-    public ResponseEntity<Aircraft> createAircraft(@RequestBody Aircraft aircraft){
-        return ResponseEntity.ok(aircraftService.createAircraft(aircraft));
+    public ResponseEntity<Aircraft> createAircraft(@RequestBody Aircraft aircraft,
+                                                   @RequestParam("airline_id") Long airlineId){
+        return ResponseEntity.ok(aircraftService.createAircraft(aircraft, airlineId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aircraft> updateAircraft(@PathVariable Long id, @RequestBody Aircraft aircraft){
-        Aircraft updated = aircraftService.updateAircraft(id, aircraft);
+    public ResponseEntity<Aircraft> updateAircraft(@PathVariable Long id, @RequestBody Aircraft aircraft,
+                                                   @RequestParam("airline_id") Long airlineId){
+        Aircraft updated = aircraftService.updateAircraft(id, aircraft, airlineId);
         if (updated == null){
             return ResponseEntity.notFound().build();
         }

@@ -29,12 +29,12 @@ public class AirlineController {
     }
 
     @PostMapping
-    public ResponseEntity<Airline> createAirline(@RequestBody Airline airline, @RequestParam("city_id") long cityId){
+    public ResponseEntity<Airline> createAirline(@RequestBody Airline airline, @RequestParam("city_id") Long cityId){
         return ResponseEntity.ok(airlineService.createAirline(airline, cityId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Airline> updateAirline(@PathVariable Long id, @RequestBody Airline airline, @RequestParam("city_id") long cityId){
+    public ResponseEntity<Airline> updateAirline(@PathVariable Long id, @RequestBody Airline airline, @RequestParam("city_id") Long cityId){
         Airline updated = airlineService.updateAirline(id, airline, cityId);
 
         if (updated == null){

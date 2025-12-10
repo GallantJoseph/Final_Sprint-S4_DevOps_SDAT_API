@@ -19,12 +19,18 @@ public class FlightController {
     public Flight getFlightById(@PathVariable("id") long id) {return flightService.getFlightById(id);}
 
     @PostMapping
-    public Flight addNewFlight(@RequestBody Flight flight) {return flightService.addNewFlight(flight);}
+    public Flight addNewFlight(@RequestBody Flight flight,
+                               @RequestParam("aircraft_id") Long aircraftId) {
+        return flightService.addNewFlight(flight, aircraftId);
+    }
 
     @DeleteMapping("/{id}")
     public Flight deleteFlight(@PathVariable("id") long id) {return flightService.deleteFlight(id);}
 
     @PutMapping("/{id}")
-    public Flight updateFlight(@PathVariable("id") long id, @RequestBody Flight flight) {return flightService.updateFlight(id, flight);}
+    public Flight updateFlight(@PathVariable("id") long id, @RequestBody Flight flight,
+                               @RequestParam("aircraft_id") Long aircraftId) {
+        return flightService.updateFlight(id, flight, aircraftId);
+    }
 }
 
