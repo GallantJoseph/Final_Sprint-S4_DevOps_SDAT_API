@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import rest.aircraft.Aircraft;
 import rest.airline.Airline;
 import rest.airport.Airport;
+import rest.gate.Gate;
 
 @Entity
 public class Flight {
@@ -18,9 +19,8 @@ public class Flight {
     @ManyToOne
     private Airport arrivalAirport;
 
-    //TODO implement when gate is implemented
-    //@ManyToOne
-    //private Gate gate
+    @ManyToOne
+    private Gate gate;
 
     @ManyToOne
     private Airline airline;
@@ -30,13 +30,15 @@ public class Flight {
 
     private String status;
 
+    @SuppressWarnings("unused")
     public Flight() {
     }
 
-    public Flight(Airport departureAirport, Airport arrivalAirport, /* TODO Gate gate, */ Aircraft aircraft, String status){
+    @SuppressWarnings("unused")
+    public Flight(Airport departureAirport, Airport arrivalAirport, Gate gate, Aircraft aircraft, String status){
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
-        //TODO this.gate = gate
+        this.gate = gate;
         this.aircraft = aircraft;
         this.status = status;
     }
@@ -65,15 +67,13 @@ public class Flight {
         this.arrivalAirport = arrivalAirport;
     }
 
-    /* TODO
     public Gate getGate() {
-        return gate
+        return gate;
     }
 
     public void setGate(Gate gate) {
-        this.gate = gate
+        this.gate = gate;
     }
-     */
 
     public Aircraft getAircraft() {
         return aircraft;
