@@ -1,6 +1,7 @@
 package rest.aircraft;
 
 import jakarta.persistence.*;
+import rest.airline.Airline;
 import rest.airport.Airport;
 import rest.passenger.Passenger;
 
@@ -14,7 +15,6 @@ public class Aircraft {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aircraft_sequence")
     private Long id;
     private String type;
-    private String airlineName;
     private int numberOfPassengers;
 
     @ManyToMany
@@ -23,12 +23,14 @@ public class Aircraft {
     @ManyToMany
     private List<Airport> airports = new ArrayList<>();
 
+    @ManyToOne
+    private Airline airline;
+
     public Aircraft() {
     }
     
     public Aircraft(String type, String airlineName, int numberOfPassengers) {
         this.type = type;
-        this.airlineName = airlineName;
         this.numberOfPassengers = numberOfPassengers;
     }
 
@@ -46,14 +48,6 @@ public class Aircraft {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getAirlineName() {
-        return airlineName;
-    }
-
-    public void setAirlineName(String airlineName) {
-        this.airlineName = airlineName;
     }
 
     public int getNumberOfPassengers() {
@@ -79,8 +73,17 @@ public class Aircraft {
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
     }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
+    }
+
     @Override
     public String toString() {
-        return "Aircraft( id = " + id + ", type = " + type + ", airlineName = " + airlineName + " )";
+        return "Aircraft( id = " + id + ", type = " + type + " )";
     }
 }

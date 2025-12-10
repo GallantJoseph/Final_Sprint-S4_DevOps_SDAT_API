@@ -36,8 +36,9 @@ public class AircraftController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aircraft> updateAircraft(@PathVariable Long id, @RequestBody Aircraft aircraft){
-        Aircraft updated = aircraftService.updateAircraft(id, aircraft);
+    public ResponseEntity<Aircraft> updateAircraft(@PathVariable Long id, @RequestBody Aircraft aircraft,
+                                                   @RequestParam("airline_id") long airlineId){
+        Aircraft updated = aircraftService.updateAircraft(id, aircraft, airlineId);
         if (updated == null){
             return ResponseEntity.notFound().build();
         }

@@ -15,10 +15,6 @@ public class Airline {
     @ManyToOne
     private City city;
 
-    // TODO: Link flights when completed
-    //@ManyToMany
-    //private List<Flight> flights = new ArrayList<>();
-
     public Airline() {
 
     }
