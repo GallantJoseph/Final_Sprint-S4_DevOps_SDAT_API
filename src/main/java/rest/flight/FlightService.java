@@ -25,5 +25,30 @@ public class FlightService {
         flightRepository.deleteById(id);
         return deleted;
     }
+
+    public Flight updateFlight(long id, Flight flight) {
+        Flight toUpdate = flightRepository.findById(id).orElse(null);
+        if  (toUpdate == null) {
+            return null;
+        }
+
+        if (flight.getDepartureAirport() != null) {
+            toUpdate.setDepartureAirport(flight.getDepartureAirport());
+        }
+        if (flight.getArrivalAirport() != null) {
+            toUpdate.setArrivalAirport(flight.getArrivalAirport());
+        }
+        if (flight.getGate() != null) {
+            toUpdate.setGate(flight.getGate());
+        }
+        if (flight.getAircraft() != null) {
+            toUpdate.setAircraft(flight.getAircraft());
+        }
+        if (flight.getStatus() != null) {
+            toUpdate.setStatus(flight.getStatus());
+        }
+
+        return flightRepository.save(toUpdate);
+    }
 }
 
