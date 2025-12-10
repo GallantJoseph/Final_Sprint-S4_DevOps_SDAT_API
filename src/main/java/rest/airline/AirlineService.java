@@ -16,10 +16,13 @@ public class AirlineService {
     @Autowired
     private CityRepository cityRepository;
 
-    public Airline createAirline(Airline newAirline, long cityId){
-        Optional<City> city = cityRepository.findById(cityId);
+    public Airline createAirline(Airline newAirline, Long cityId){
+        if (cityId != null) {
+            Optional<City> city = cityRepository.findById(cityId);
 
-        city.ifPresent(newAirline::setCity);
+            city.ifPresent(newAirline::setCity);
+        }
+
         return airlineRepository.save(newAirline);
     }
 
@@ -31,9 +34,8 @@ public class AirlineService {
         return airlineRepository.findById(id).orElse(null);
     }
 
-    public Airline updateAirline(long id, Airline airline, long cityId) {
+    public Airline updateAirline(long id, Airline airline, Long cityId) {
         Optional<Airline> airlineFromDB = airlineRepository.findById(id);
-        Optional<City> city = cityRepository.findById(cityId);
 
         if (airlineFromDB.isPresent()) {
             Airline airlineToUpdate = airlineFromDB.get();
@@ -41,10 +43,14 @@ public class AirlineService {
             airlineToUpdate.setName(airline.getName());
             airlineToUpdate.setCode(airline.getCode());
 
-            if (city.isPresent())
-                airlineToUpdate.setCity(city.get());
-             else
-                airlineToUpdate.setCity(airline.getCity());
+            if (cityId != null) {
+                Optional<City> city = cityRepository.findById(cityId);
+
+                if (city.isPresent())
+                    airlineToUpdate.setCity(city.get());
+                else
+                    airlineToUpdate.setCity(airline.getCity());
+            }
 
             airlineRepository.save(airlineToUpdate);
         }

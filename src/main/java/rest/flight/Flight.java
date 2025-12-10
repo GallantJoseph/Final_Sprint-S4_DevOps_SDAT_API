@@ -2,7 +2,6 @@ package rest.flight;
 
 import jakarta.persistence.*;
 import rest.aircraft.Aircraft;
-import rest.airline.Airline;
 import rest.airport.Airport;
 import rest.gate.Gate;
 
@@ -21,9 +20,6 @@ public class Flight {
 
     @ManyToOne
     private Gate gate;
-
-    @ManyToOne
-    private Airline airline;
 
     @ManyToOne
     private Aircraft aircraft;
@@ -81,14 +77,6 @@ public class Flight {
 
     public void setAircraft(Aircraft aircraft) {
         this.aircraft = aircraft;
-    }
-
-    public Airline getAirline() {
-        return airline;
-    }
-
-    public void setAirline(Airline airline) {
-        this.airline = airline;
     }
 
     public String getStatus() {

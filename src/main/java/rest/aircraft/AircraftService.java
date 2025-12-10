@@ -54,7 +54,6 @@ public class AircraftService {
         return result;
     }
 
-
     public Iterable<Aircraft> getAllAircraft() {
         return  aircraftRepository.findAll();
     }
@@ -63,7 +62,13 @@ public class AircraftService {
         return aircraftRepository.findById(id).orElse(null);
     }
 
-    public Aircraft createAircraft(Aircraft newAircraft){
+    public Aircraft createAircraft(Aircraft newAircraft, Long airlineId){
+        if (airlineId != null) {
+            Optional<Airline> airlineOptional = airlineRepository.findById(airlineId);
+
+            airlineOptional.ifPresent(newAircraft::setAirline);
+        }
+
         return aircraftRepository.save(newAircraft);
     }
 
