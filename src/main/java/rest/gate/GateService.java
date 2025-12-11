@@ -2,17 +2,28 @@ package rest.gate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rest.airport.Airport;
+import rest.airport.AirportRepository;
 
 import java.util.List;
-import java.util.Optional;
-import org.springframework.web.bind.annotation.*;
 
 @Service
 public class GateService {
     @Autowired
     private GateRepository gateRepository;
 
-    public Gate createGate(Gate newGate) {
+    @Autowired
+    private  AirportRepository airportRepository;
+
+
+    public Gate createGate(Gate newGate, Long airportId) {
+        if (airportId == null) {
+            throw new IllegalArgumentException("airport_id is required");
+        }
+        Airport airport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new IllegalArgumentException("Airport not found: " + airportId));
+
+        newGate.setAirport(airport);
         return gateRepository.save(newGate);
     }
 
@@ -36,20 +47,21 @@ public class GateService {
         return gateRepository.findByAirportId(airportId);
     }
 
-    public Gate updateGate(Long id, Gate gate) {
-        Optional<Gate> gateFromDB = gateRepository.findById(id);
-
-        if (gateFromDB.isPresent()) {
-            Gate gateToUpdate = gateFromDB.get();
+    public Gate updateGate(Long id, Gate gate, Long airportId) {
+        return gateRepository.findById(id).map(gateToUpdate -> {
 
             gateToUpdate.setGateNumber(gate.getGateNumber());
             gateToUpdate.setStatus(gate.getStatus());
-            gateToUpdate.setAirport(gate.getAirport()); // takes whatever client sent
 
-            gateRepository.save(gateToUpdate);
-        }
+            if (airportId != null) {
+                Airport airport = airportRepository.findById(airportId)
+                        .orElseThrow(() -> new IllegalArgumentException("Airport not found: " + airportId));
+                gateToUpdate.setAirport(airport);
+            }
 
-        return gateRepository.findById(id).orElse(null);
+            return gateRepository.save(gateToUpdate);
+
+        }).orElse(null);
     }
 
     public void deleteGate(Long id) {

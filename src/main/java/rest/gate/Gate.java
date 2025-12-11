@@ -6,13 +6,12 @@ import rest.airport.Airport;
 @Entity
 public class Gate {
     @Id
-    @SequenceGenerator(name = "gate_sequence", sequenceName = "gate_sequence", allocationSize = 1)
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-
     private Long id;
-    private String gateNumber;
-    private String status; // like if its Available, Boarding or Closed.
 
+    private String gateNumber;
+
+    private String status; // like if its Available, Boarding or Closed.
 
     @ManyToOne
     private Airport airport;

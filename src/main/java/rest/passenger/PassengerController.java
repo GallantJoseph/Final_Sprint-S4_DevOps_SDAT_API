@@ -15,8 +15,8 @@ public class PassengerController {
     private PassengerService passengerService;
 
     @PostMapping
-    public Passenger createPassenger(@RequestBody Passenger passenger) {
-        return passengerService.createPassenger(passenger);
+    public Passenger createPassenger(@RequestBody Passenger passenger, @RequestParam("city_id") Long cityId) {
+        return passengerService.createPassenger(passenger, cityId);
     }
 
     @GetMapping("/{id}")
@@ -30,7 +30,7 @@ public class PassengerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Passenger> updatePassenger(@PathVariable long id, @RequestBody Passenger passenger, @RequestParam Long cityId) {
+    public ResponseEntity<Passenger> updatePassenger(@PathVariable long id, @RequestBody Passenger passenger, @RequestParam("city_id") Long cityId) {
         return ResponseEntity.ok(passengerService.updatePassenger(id, passenger, cityId));
     }
 
