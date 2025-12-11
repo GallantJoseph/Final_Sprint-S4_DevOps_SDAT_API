@@ -33,7 +33,7 @@ class AircraftServiceTest {
         Airline airline = new Airline("St. John's International Airport", "SSJ", city);
         airline.setId(1L);
 
-        Aircraft aircraftUnderTest = new Aircraft("Boeing", 150, airline);
+        Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 150, airline);
         aircraftUnderTest.setAirline(airline);
         aircraftUnderTest.setId(1L);
 
@@ -53,7 +53,7 @@ class AircraftServiceTest {
         Airline airline = new Airline("St. John's International Airport", "SSJ", city);
         airline.setId(1L);
 
-        Aircraft aircraftUnderTest = new Aircraft("Boeing", 150, airline);
+        Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 150, airline);
         aircraftUnderTest.setId(1L);
         aircraftUnderTest.setAirline(airline);
 
