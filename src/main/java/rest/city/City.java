@@ -1,16 +1,13 @@
 package rest.city;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 
 @Entity
 public class City {
 
     @Id
     @SequenceGenerator(name = "city_sequence", sequenceName = "city_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "city_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_sequence")
 
     private long id;
     private String name;

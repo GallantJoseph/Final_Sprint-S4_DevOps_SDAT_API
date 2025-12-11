@@ -1,8 +1,9 @@
 package rest.airline;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AirlineRepository extends org.springframework.data.repository.CrudRepository<Airline, Long>  {
+public interface AirlineRepository extends JpaRepository<Airline, Long>  {
 
 }

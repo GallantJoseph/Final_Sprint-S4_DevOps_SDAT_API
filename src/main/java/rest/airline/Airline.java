@@ -16,7 +16,6 @@ public class Airline {
     private City city;
 
     public Airline() {
-
     }
 
     public Airline(String name, String code, City city) {

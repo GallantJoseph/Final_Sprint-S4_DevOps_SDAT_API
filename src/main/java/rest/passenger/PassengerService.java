@@ -15,8 +15,17 @@ public class PassengerService {
     @Autowired
     private CityService cityService;
 
-    public Passenger createPassenger(Passenger passenger) {
-        return passengerRepository.save(passenger);
+    public Passenger createPassenger(Passenger passenger, Long cityId) {
+            City city;
+
+            if (cityId != null) {
+                city = cityService.getCityById(cityId);
+
+                if (city != null) {
+                    passenger.setCity(city);
+                }
+            }
+            return passengerRepository.save(passenger);
     }
 
     public Passenger getPassengerById(long id) {

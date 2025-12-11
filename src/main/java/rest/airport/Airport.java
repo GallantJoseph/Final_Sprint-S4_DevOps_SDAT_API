@@ -7,7 +7,7 @@ import rest.city.City;
 public class Airport {
     @Id
     @SequenceGenerator(name = "airport_sequence", sequenceName = "airport_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "airport_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "airport_sequence")
 
     private Long id;
     private String name;

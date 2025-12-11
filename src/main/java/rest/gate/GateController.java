@@ -48,14 +48,14 @@ public class GateController {
     }
 
     @PostMapping
-    public ResponseEntity<Gate> createGate(@RequestBody Gate gate) {
-        Gate newGate = gateService.createGate(gate);
+    public ResponseEntity<Gate> createGate(@RequestBody Gate gate, @RequestParam("airport_id") Long airportId) {
+        Gate newGate = gateService.createGate(gate, airportId);
         return  ResponseEntity.ok(newGate);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Gate> updateGateById(@PathVariable Long id, @RequestBody Gate gate) {
-        Gate updatedGate = gateService.updateGate(id, gate);
+    public ResponseEntity<Gate> updateGateById(@PathVariable Long id, @RequestBody Gate gate, @RequestParam(value = "airport_id", required = false) Long airportId) {
+        Gate updatedGate = gateService.updateGate(id, gate, airportId);
 
         if (updatedGate == null){
             return ResponseEntity.notFound().build();

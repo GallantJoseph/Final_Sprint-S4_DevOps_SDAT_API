@@ -2,8 +2,7 @@ package rest.aircraft;
 
 import jakarta.persistence.*;
 import rest.airline.Airline;
-import rest.airport.Airport;
-import rest.passenger.Passenger;
+import rest.airport.Airport;;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +16,20 @@ public class Aircraft {
     private String type;
     private int numberOfPassengers;
 
-    @ManyToMany
-    private List<Passenger> passengers = new ArrayList<>();
-
-    @ManyToMany
-    private List<Airport> airports = new ArrayList<>();
+    //  We could add current location
+    @ManyToOne
+    private Airport currentLocation;
 
     @ManyToOne
     private Airline airline;
 
     public Aircraft() {
     }
-    
-    public Aircraft(String type, String airlineName, int numberOfPassengers) {
+
+    public Aircraft(String type, int numberOfPassengers, Airline airline) {
         this.type = type;
         this.numberOfPassengers = numberOfPassengers;
+        this.airline = airline;
     }
 
     public Long getId() {
@@ -58,22 +56,6 @@ public class Aircraft {
         this.numberOfPassengers = numberOfPassengers;
     }
 
-    public List<Passenger> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(List<Passenger> passengers) {
-        this.passengers = passengers;
-    }
-
-    public List<Airport> getAirports() {
-        return airports;
-    }
-
-    public void setAirports(List<Airport> airports) {
-        this.airports = airports;
-    }
-
     public Airline getAirline() {
         return airline;
     }
@@ -85,5 +67,13 @@ public class Aircraft {
     @Override
     public String toString() {
         return "Aircraft( id = " + id + ", type = " + type + " )";
+    }
+
+    public Airport getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Airport currentLocation) {
+        this.currentLocation = currentLocation;
     }
 }
