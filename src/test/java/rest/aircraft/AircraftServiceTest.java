@@ -27,10 +27,10 @@ class AircraftServiceTest {
 
     @Test
     void testGetAircraftById() {
-        City city = new City("St. John's", "NL", 150000);
+        City city = new City("Montreal", "QC", 2000000);
         city.setId(1L);
 
-        Airline airline = new Airline("St. John's International Airport", "SSJ", city);
+        Airline airline = new Airline("Air Canada", "IATA", city);
         airline.setId(1L);
 
         Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 150, airline);
@@ -47,10 +47,10 @@ class AircraftServiceTest {
 
     @Test
     void testCreateAircraft() {
-        City city = new City("St. John's", "NL", 150000);
+        City city = new City("Montreal", "QC", 2000000);
         city.setId(1L);
 
-        Airline airline = new Airline("St. John's International Airport", "SSJ", city);
+        Airline airline = new Airline("Air Canada", "IATA", city);
         airline.setId(1L);
 
         Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 150, airline);
@@ -67,10 +67,10 @@ class AircraftServiceTest {
 
     @Test
     void testUpdateAircraft() {
-        City city = new City("St. John's", "NL", 150000);
+        City city = new City("Montreal", "QC", 2000000);
         city.setId(1L);
 
-        Airline airline = new Airline("St. John's International Airport", "SSJ", city);
+        Airline airline = new Airline("Air Canada", "IATA", city);
         airline.setId(1L);
 
         Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 100, airline);
