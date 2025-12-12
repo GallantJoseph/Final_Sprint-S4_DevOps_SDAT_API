@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import rest.city.City;
 import rest.city.CityRepository;
 
-import java.util.Optional;
-
 @Service
 public class AirportService {
     @Autowired
@@ -23,32 +21,40 @@ public class AirportService {
         return airportRepository.findAll();
     }
 
-    public Optional<Airport> getAirportById(long id) {
-        return airportRepository.findById(id);
+    public Airport getAirportById(Long id) {
+        return airportRepository.findById(id).orElse(null);
     }
 
-    public Airport addNewAirport(Airport airport, long city_id) {
-        Optional<City> city = cityRepository.findById(city_id);
-        city.ifPresent(airport::setCity);
+    public Airport addNewAirport(Airport airport, Long city_id) {
+        cityRepository.findById(city_id).ifPresent(airport::setCity);
         return airportRepository.save(airport);
     }
 
-    public Optional<Airport> removeAirport(long id) {
-        Optional<Airport> deleted = airportRepository.findById(id);
-        airportRepository.deleteById(id);
+    public Airport removeAirport(Long id) {
+        Airport deleted = airportRepository.findById(id).orElse(null);
+        if (deleted != null) {
+            airportRepository.delete(deleted);
+        }
         return deleted;
     }
 
-    public Optional<Airport> updateAirport(long id, Airport airport) {
-        Optional<Airport> airportFromDB = airportRepository.findById(id);
-        if (airportFromDB.isPresent()) {
-            Airport airportToUpdate = airportFromDB.get();
-            airportToUpdate.setName(airport.getName());
-            airportToUpdate.setCity(airport.getCity());
-            airportToUpdate.setCode(airport.getCode());
+    public Airport updateAirport(Long id, Airport airport, Long city_id) {
+        Airport airportToUpdate = airportRepository.findById(id).orElse(null);
+        City city  = cityRepository.findById(city_id).orElse(null);
+
+        if (airportToUpdate != null) {
+            if (airport.getName() != null) {
+                airportToUpdate.setName(airport.getName());
+            }
+            if (city != null) {
+                airportToUpdate.setCity(city);
+            }
+            if (airport.getCode() != null) {
+                airportToUpdate.setCode(airport.getCode());
+            }
 
             airportRepository.save(airportToUpdate);
         }
-        return airportRepository.findById(id);
+        return airportRepository.findById(id).orElse(null);
     }
 }
