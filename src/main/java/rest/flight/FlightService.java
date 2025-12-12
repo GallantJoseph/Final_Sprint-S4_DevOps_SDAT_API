@@ -19,7 +19,7 @@ public class FlightService {
         return flightRepository.findAll();
     }
 
-    public Flight getFlightById(long id) {
+    public Flight getFlightById(Long id) {
         return flightRepository.findById(id).orElse(null);
     }
 
@@ -33,25 +33,25 @@ public class FlightService {
         return flightRepository.save(flight);
     }
 
-    public Flight deleteFlight(long id) {
+    public Flight deleteFlight(Long id) {
         Flight deleted = flightRepository.findById(id).orElse(null);
         flightRepository.deleteById(id);
         return deleted;
     }
 
-    public Flight updateFlight(long id, Flight flight, Long aircraftId) {
+    public Flight updateFlight(Long id, Flight flight, Long aircraftId) {
         Flight flightToUpdate = flightRepository.findById(id).orElse(null);
-        Optional<Aircraft> aircraft;
+        Aircraft aircraft;
 
         if  (flightToUpdate == null) {
             return null;
         }
 
         if (aircraftId != null) {
-            aircraft = aircraftRepository.findById(aircraftId);
+            aircraft = aircraftRepository.findById(aircraftId).orElse(null);
 
-            if (aircraft.isPresent()) {
-                flightToUpdate.setAircraft(aircraft.get());
+            if (aircraft != null) {
+                flightToUpdate.setAircraft(aircraft);
             } else {
                 flightToUpdate.setAircraft(flightToUpdate.getAircraft());
             }
