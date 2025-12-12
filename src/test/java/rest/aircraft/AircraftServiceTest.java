@@ -30,7 +30,7 @@ class AircraftServiceTest {
         City city = new City("Montreal", "QC", 2000000);
         city.setId(1L);
 
-        Airline airline = new Airline("Air Canada", "IATA", city);
+        Airline airline = new Airline("Air Canada", "ACA", city);
         airline.setId(1L);
 
         Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 150, airline);
@@ -50,7 +50,7 @@ class AircraftServiceTest {
         City city = new City("Montreal", "QC", 2000000);
         city.setId(1L);
 
-        Airline airline = new Airline("Air Canada", "IATA", city);
+        Airline airline = new Airline("Air Canada", "ACA", city);
         airline.setId(1L);
 
         Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 150, airline);
@@ -70,7 +70,7 @@ class AircraftServiceTest {
         City city = new City("Montreal", "QC", 2000000);
         city.setId(1L);
 
-        Airline airline = new Airline("Air Canada", "IATA", city);
+        Airline airline = new Airline("Air Canada", "ACA", city);
         airline.setId(1L);
 
         Aircraft aircraftUnderTest = new Aircraft("Boeing 737", 100, airline);
