@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import rest.city.City;
 import rest.city.CityRepository;
 
-import java.util.Optional;
-
 @Service
 public class AirportService {
     @Autowired
@@ -40,14 +38,16 @@ public class AirportService {
         return deleted;
     }
 
-    public Airport updateAirport(Long id, Airport airport) {
+    public Airport updateAirport(Long id, Airport airport, Long city_id) {
         Airport airportToUpdate = airportRepository.findById(id).orElse(null);
+        City city  = cityRepository.findById(city_id).orElse(null);
+
         if (airportToUpdate != null) {
             if (airport.getName() != null) {
                 airportToUpdate.setName(airport.getName());
             }
-            if (airport.getCity() != null) {
-                airportToUpdate.setCity(airport.getCity());
+            if (city != null) {
+                airportToUpdate.setCity(city);
             }
             if (airport.getCode() != null) {
                 airportToUpdate.setCode(airport.getCode());
