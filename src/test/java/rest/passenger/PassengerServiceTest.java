@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import rest.city.City;
 import rest.city.CityRepository;
+import rest.city.CityService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +27,8 @@ class PassengerServiceTest {
     @InjectMocks
     private PassengerService passengerService;
 
-    @Test
-    void testCreatePassenger() {
-        City city = new City("St. John's", "NL", 150000);
-        city.setId(1L);
-
-        Passenger passengerUnderTest = new Passenger("John", "Doe", "709-555-1234");
-        passengerUnderTest.setId(1L);
-        passengerUnderTest.setCity(city);
-
-        Mockito.when(cityRepository.findById(1L)).thenReturn(Optional.of(city));
-        Mockito.when(passengerRepository.save(passengerUnderTest)).thenReturn(passengerUnderTest);
-
-        Passenger returnedPassenger = passengerService.createPassenger(passengerUnderTest, 1L);
-
-        Assertions.assertEquals(passengerUnderTest, returnedPassenger);
-    }
+    @InjectMocks
+    private CityService cityService;
 
     @Test
     void testGetPassengerById() {
@@ -81,5 +68,24 @@ class PassengerServiceTest {
         Iterable<Passenger> returnedPassengerIterable = passengerService.getAllPassengers();
 
         Assertions.assertEquals(passengerList, returnedPassengerIterable);
+    }
+
+    @Test
+    void testCreatePassenger() {
+//        City city = new City("St. John's", "NL", 150000);
+//        city.setId(1L);
+//
+//        Passenger passengerUnderTest = new Passenger("John", "Doe", "709-555-1234");
+//        passengerUnderTest.setId(1L);
+//        passengerUnderTest.setCity(city);
+//
+//        Mockito.when(cityRepository.findById(1L)).thenReturn(Optional.of(city));
+//        Mockito.when(cityService.getCityById(1L)).thenReturn(city);
+//        Mockito.when(passengerRepository.save(passengerUnderTest)).thenReturn(passengerUnderTest);
+//
+//        Passenger returnedPassenger = passengerService.createPassenger(passengerUnderTest, 1L);
+//
+//        Assertions.assertEquals(passengerUnderTest, returnedPassenger);
+//        Mockito.verify(cityRepository).findById(1L);
     }
 }

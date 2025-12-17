@@ -2,7 +2,7 @@ package rest.aircraft;
 
 import jakarta.persistence.*;
 import rest.airline.Airline;
-import rest.airport.Airport;;
+import rest.airport.Airport;
 
 import java.util.ArrayList;
 import java.util.List;
