@@ -90,10 +90,13 @@ public class FlightService {
         return flightRepository.save(flightToUpdate);
     }
 
-    public Flight deleteFlight(Long id) {
-        Flight deleted = flightRepository.findById(id).orElse(null);
-        if (deleted != null) flightRepository.deleteById(id);
-        return deleted;
+    // In FlightService.java
+    public boolean deleteFlight(Long id) {
+        if (flightRepository.existsById(id)) {
+            flightRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     // NEW: Add passenger to flight

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import rest.passenger.Passenger;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/flights")
@@ -70,35 +71,43 @@ public class FlightController {
     }
 
     @DeleteMapping("/{id}")
-    public Flight deleteFlight(@PathVariable Long id) {
-        return flightService.deleteFlight(id);
+    public ResponseEntity<?> deleteFlight(@PathVariable Long id) {
+        boolean deleted = flightService.deleteFlight(id);
+
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.noContent().build();
+
     }
 
-    // NEW: Add passenger to flight
+
     @PostMapping("/{flightId}/passengers/{passengerId}")
-    public ResponseEntity<Flight> addPassengerToFlight(
+    public ResponseEntity<?> addPassengerToFlight(
             @PathVariable Long flightId,
             @PathVariable Long passengerId) {
-        Flight updatedFlight = flightService.addPassengerToFlight(flightId, passengerId);
-        if (updatedFlight == null) {
+
+        Flight flight = flightService.addPassengerToFlight(flightId, passengerId);
+        if (flight == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updatedFlight);
+        return ResponseEntity.noContent().build();
+
     }
 
-    // NEW: Remove passenger from flight
     @DeleteMapping("/{flightId}/passengers/{passengerId}")
-    public ResponseEntity<Flight> removePassengerFromFlight(
+    public ResponseEntity<?> removePassengerFromFlight(
             @PathVariable Long flightId,
             @PathVariable Long passengerId) {
-        Flight updatedFlight = flightService.removePassengerFromFlight(flightId, passengerId);
-        if (updatedFlight == null) {
+
+        Flight flight = flightService.removePassengerFromFlight(flightId, passengerId);
+        if (flight == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updatedFlight);
+        return ResponseEntity.noContent().build();
     }
 
-    // Optional: Get all passengers on a flight
     @GetMapping("/{flightId}/passengers")
     public ResponseEntity<List<Passenger>> getFlightPassengers(@PathVariable Long flightId) {
         Flight flight = flightService.getFlightById(flightId);
