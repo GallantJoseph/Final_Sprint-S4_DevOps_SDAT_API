@@ -1,30 +1,19 @@
 package rest.aircraft;
 
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.airline.Airline;
 import rest.airline.AirlineRepository;
-import rest.airport.Airport;
-import rest.airport.AirportRepository;
-import rest.passenger.Passenger;
-import rest.passenger.PassengerRepository;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+;
 
 @Service
 public class AircraftService {
     @Autowired
     private AircraftRepository aircraftRepository;
-
-    @Autowired
-    private AirportRepository airportRepository;
-
-    @Autowired
-    private PassengerRepository passengerRepository;
 
     @Autowired
     private AirlineRepository airlineRepository;
@@ -73,16 +62,6 @@ public class AircraftService {
 
     public void deleteAircraftById(Long id){
         aircraftRepository.deleteById(id);
-    }
-
-    public Airport getCurrentLocation(Long aircraftId) {
-        return aircraftRepository.findById(aircraftId)
-                .map(Aircraft::getCurrentLocation)
-                .orElse(null);
-    }
-
-    public List<Aircraft> getAircraftAtAirport(Long airportId) {
-        return aircraftRepository.findByCurrentLocationId(airportId);
     }
 
     public List<Aircraft> getAircraftByAirline(Long airlineId) {

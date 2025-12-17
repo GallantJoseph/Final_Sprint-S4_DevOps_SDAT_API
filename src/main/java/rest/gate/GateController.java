@@ -34,19 +34,6 @@ public class GateController {
         return ResponseEntity.ok(gates);
     }
 
-    @GetMapping("/airport/{id}/departures")
-    public ResponseEntity<List<Gate>> getDepartureGatesByAirportId(@PathVariable Long id) {
-        List<Gate> departureGates = gateService.getDepartureGates(id);
-        return ResponseEntity.ok(departureGates);
-
-    }
-
-    @GetMapping("/airport/{id}/arrivals")
-    public ResponseEntity<List<Gate>> getArrivalGatesByAirportId(@PathVariable Long id) {
-        List<Gate> arrivalGates = gateService.getArrivalGates(id);
-        return ResponseEntity.ok(arrivalGates);
-    }
-
     @PostMapping
     public ResponseEntity<Gate> createGate(@RequestBody Gate gate, @RequestParam("airport_id") Long airportId) {
         Gate newGate = gateService.createGate(gate, airportId);
