@@ -6,6 +6,6 @@ import java.util.List;
 
 @Repository
 public interface GateRepository extends JpaRepository<Gate, Long> {
-    List<Gate> findByAirportId(Long id);
-    List<Gate> findByGateNumber(String gateNumber);
+    List<Gate> findByAirportId(Long airportId);
+
 }

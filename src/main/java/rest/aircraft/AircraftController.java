@@ -50,22 +50,6 @@ public class AircraftController {
         return ResponseEntity.noContent().build();
     }
 
-    // Current location of the aircraft (the only airport it can be at right now)
-    @GetMapping("/{id}/current-airport")
-    public ResponseEntity<Airport> getCurrentLocation(@PathVariable Long id) {
-        Airport airport = aircraftService.getCurrentLocation(id);
-        if (airport == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(airport);
-    }
-
-    // All aircraft currently at a specific airport
-    @GetMapping("/at-airport/{airportId}")
-    public ResponseEntity<List<Aircraft>> getAircraftAtAirport(@PathVariable Long airportId) {
-        return ResponseEntity.ok(aircraftService.getAircraftAtAirport(airportId));
-    }
-
     // All aircraft belonging to an airline
     @GetMapping("/airline/{airlineId}")
     public ResponseEntity<List<Aircraft>> getAircraftByAirline(@PathVariable Long airlineId) {

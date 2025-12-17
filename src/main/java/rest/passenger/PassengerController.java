@@ -15,8 +15,13 @@ public class PassengerController {
     private PassengerService passengerService;
 
     @PostMapping
-    public Passenger createPassenger(@RequestBody Passenger passenger, @RequestParam("city_id") Long cityId) {
-        return passengerService.createPassenger(passenger, cityId);
+    public ResponseEntity<Passenger> createPassenger(
+            @RequestBody Passenger passenger,
+            @RequestParam("city_id") Long cityId,
+            @RequestParam(value = "flight_id", required = false) Long flightId) {  // NEW
+
+        Passenger newPassenger = passengerService.createPassenger(passenger, cityId, flightId);
+        return ResponseEntity.ok(newPassenger);
     }
 
     @GetMapping("/{id}")
@@ -39,3 +44,5 @@ public class PassengerController {
         passengerService.deletePassenger(id);
     }
 }
+
+

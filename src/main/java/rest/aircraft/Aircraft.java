@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import rest.airline.Airline;
 import rest.airport.Airport;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Aircraft {
@@ -15,10 +13,6 @@ public class Aircraft {
     private Long id;
     private String type;
     private int numberOfPassengers;
-
-    //  We could add current location
-    @ManyToOne
-    private Airport currentLocation;
 
     @ManyToOne
     private Airline airline;
@@ -69,11 +63,4 @@ public class Aircraft {
         return "Aircraft( id = " + id + ", type = " + type + " )";
     }
 
-    public Airport getCurrentLocation() {
-        return currentLocation;
-    }
-
-    public void setCurrentLocation(Airport currentLocation) {
-        this.currentLocation = currentLocation;
-    }
 }

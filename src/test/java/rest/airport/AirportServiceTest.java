@@ -9,7 +9,7 @@ import rest.city.CityRepository;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
@@ -84,6 +84,10 @@ public class AirportServiceTest {
         assertEquals(resultAirport.getName(), returnedAirport.getName());
         assertEquals(resultAirport.getCode(), returnedAirport.getCode());
         assertEquals(resultAirport.getCity(), returnedAirport.getCity());
+
+        assertNotNull(returnedAirport.getName());
+        assertNotNull(returnedAirport.getCode());
+        assertNotNull(returnedAirport.getCity());
 
         Mockito.verify(airportRepository, times(2)).findById(1L);
         Mockito.verify(airportRepository).save(airportUnderTest);

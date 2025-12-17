@@ -39,14 +39,6 @@ public class GateService {
         return gateRepository.findByAirportId(airportId);
     }
 
-    public List<Gate> getDepartureGates(Long airportId) {
-        return gateRepository.findByAirportId(airportId);
-    }
-
-    public List<Gate> getArrivalGates(Long airportId) {
-        return gateRepository.findByAirportId(airportId);
-    }
-
     public Gate updateGate(Long id, Gate gate, Long airportId) {
         return gateRepository.findById(id).map(gateToUpdate -> {
 
