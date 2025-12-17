@@ -2,6 +2,7 @@ package rest.aircraft;
 
 import jakarta.persistence.*;
 import rest.airline.Airline;
+import rest.airport.Airport;
 
 
 @Entity
