@@ -35,7 +35,11 @@ public class Flight {
     private Airport arrivalAirport;
 
     @ManyToOne
-    private Gate gate;
+    private Gate departureGate;
+
+    @ManyToOne
+    private Gate arrivalGate;
+
 
     @ManyToOne
     private Aircraft aircraft;
@@ -51,11 +55,12 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(List<Passenger> passengers, Airport departureAirport, Airport arrivalAirport, Gate gate, Aircraft aircraft, Airline airline, String status, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    public Flight(List<Passenger> passengers, Airport departureAirport, Airport arrivalAirport, Gate departureGate, Gate arrivalGate, Aircraft aircraft, Airline airline, String status, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         this.passengers = passengers;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
-        this.gate = gate;
+        this.departureGate = departureGate;
+        this.arrivalGate = arrivalGate;
         this.aircraft = aircraft;
         this.airline = airline;
         this.status = status;
@@ -95,12 +100,20 @@ public class Flight {
         this.arrivalAirport = arrivalAirport;
     }
 
-    public Gate getGate() {
-        return gate;
+    public Gate getDepartureGate() {
+        return departureGate;
     }
 
-    public void setGate(Gate gate) {
-        this.gate = gate;
+    public void setDepartureGate(Gate departureGate) {
+        this.departureGate = departureGate;
+    }
+
+    public Gate getArrivalGate() {
+        return arrivalGate;
+    }
+
+    public void setArrivalGate(Gate arrivalGate) {
+        this.arrivalGate = arrivalGate;
     }
 
     public Aircraft getAircraft() {
